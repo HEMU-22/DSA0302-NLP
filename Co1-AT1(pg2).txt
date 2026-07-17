@@ -1,0 +1,79 @@
+import re
+
+# Product List
+products = [
+    "Apple iPhone 15",
+    "Apple Watch",
+    "Samsung Galaxy S24",
+    "Samsung Smart TV",
+    "Dell Laptop",
+    "HP Laptop",
+    "Lenovo Laptop",
+    "Sony Headphones",
+    "Boat Earbuds",
+    "Apple AirPods",
+    "Python Programming Book",
+    "Java Programming Book",
+    "SQL Guide Book"
+]
+
+# Search Keyword
+keyword = input("Enter search keyword: ")
+
+# -----------------------------
+# Exact Search
+# -----------------------------
+exact = [p for p in products if re.fullmatch(keyword, p, re.IGNORECASE)]
+
+# -----------------------------
+# Prefix Search
+# -----------------------------
+prefix = [p for p in products if re.search(r"^" + re.escape(keyword), p, re.IGNORECASE)]
+
+# -----------------------------
+# Suffix Search
+# -----------------------------
+suffix = [p for p in products if re.search(re.escape(keyword) + r"$", p, re.IGNORECASE)]
+
+# -----------------------------
+# Partial Search
+# -----------------------------
+partial = [p for p in products if re.search(re.escape(keyword), p, re.IGNORECASE)]
+
+# -----------------------------
+# Case-Insensitive Search
+# -----------------------------
+case_insensitive = [p for p in products if re.search(keyword, p, re.IGNORECASE)]
+
+# -----------------------------
+# Display Results
+# -----------------------------
+print("\n------ Exact Search ------")
+for item in exact:
+    print(item)
+
+print("\n------ Prefix Search ------")
+for item in prefix:
+    print(item)
+
+print("\n------ Suffix Search ------")
+for item in suffix:
+    print(item)
+
+print("\n------ Partial Search ------")
+for item in partial:
+    print(item)
+
+print("\n------ Case-Insensitive Search ------")
+for item in case_insensitive:
+    print(item)
+
+# -----------------------------
+# Report
+# -----------------------------
+print("\n========== Search Report ==========")
+print("Exact Matches            :", len(exact))
+print("Prefix Matches           :", len(prefix))
+print("Suffix Matches           :", len(suffix))
+print("Partial Matches          :", len(partial))
+print("Case-Insensitive Matches :", len(case_insensitive))

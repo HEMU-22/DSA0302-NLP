@@ -1,0 +1,75 @@
+import re
+
+# Sample Resume Text
+resume = """
+Name: Gali Giri
+
+Email: galigiri@gmail.com
+
+Phone: 9876543210
+
+Skills:
+Python, Java, SQL, Machine Learning, NLP
+
+Experience:
+3 years of experience in Software Development and Data Analysis.
+"""
+
+# --------------------------
+# Extract Name
+# --------------------------
+name = re.search(r"Name:\s*(.*)", resume)
+name = name.group(1) if name else "Not Found"
+
+# --------------------------
+# Extract Email
+# --------------------------
+email = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", resume)
+
+# --------------------------
+# Extract Phone Number
+# --------------------------
+phone = re.findall(r"\b\d{10}\b", resume)
+
+# --------------------------
+# Technical Skills
+# --------------------------
+skill_list = ["Python", "Java", "SQL", "Machine Learning", "NLP"]
+
+skills_found = []
+
+for skill in skill_list:
+    if re.search(skill, resume, re.IGNORECASE):
+        skills_found.append(skill)
+
+# --------------------------
+# Experience Extraction
+# --------------------------
+experience = re.search(r"(\d+)\s+years?", resume, re.IGNORECASE)
+
+years = int(experience.group(1)) if experience else 0
+
+# --------------------------
+# Candidate Summary
+# --------------------------
+print("------ Candidate Profile ------")
+
+print("Name :", name)
+
+print("Email :", email[0] if email else "Not Found")
+
+print("Phone :", phone[0] if phone else "Not Found")
+
+print("Skills :", ", ".join(skills_found))
+
+print("Experience :", years, "Years")
+
+# --------------------------
+# Eligibility Check
+# --------------------------
+print("\n------ Eligibility ------")
+
+if years >= 2 and "Python" in skills_found:
+    print("Candidate is Eligible for Shortlisting")
+else:
+    print("Candidate is Not Eligible")
